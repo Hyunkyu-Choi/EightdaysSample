@@ -1,3 +1,4 @@
 <resources>
     <string name="app_name">EightDaysSample</string>
+    <string name="analytics_tracking_id">UA-82847478-1</string>
 </resources>

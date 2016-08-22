@@ -1,0 +1,38 @@
+{
+  "project_info": {
+    "project_number": "305774673613",
+    "project_id": "eightdayssample"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:305774673613:android:6dda9cdf0d820b45",
+        "android_client_info": {
+          "package_name": "com.example.administrator.eightdayssample"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAnJaOmObl0ReRj6AtB7ia_W5goWSStTM0"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 2,
+          "analytics_property": {
+            "tracking_id": "UA-82847478-1"
+          }
+        },
+        "appinvite_service": {
+          "status": 1,
+          "other_platform_oauth_client": []
+        },
+        "ads_service": {
+          "status": 1
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

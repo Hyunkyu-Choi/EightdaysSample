@@ -1,6 +1,7 @@
 package com.example.administrator.eightdayssample.view;
 
 import android.content.Intent;
+import android.databinding.DataBindingUtil;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.support.v4.view.ViewPager;
@@ -16,12 +17,16 @@ import android.widget.LinearLayout;
 
 import com.example.administrator.eightdayssample.R;
 import com.example.administrator.eightdayssample.adapter.IntroPagerAdapter;
+import com.example.administrator.eightdayssample.databinding.ActivityIntroBinding;
+import com.example.administrator.eightdayssample.databinding.FragmentLoginBinding;
 import com.example.administrator.eightdayssample.presenter.IntroPresenter;
 
 
 public class IntroActivity extends AppCompatActivity implements IntroPresenter.View {
 
     private IntroPresenter introPresenter;
+
+    private ActivityIntroBinding introBinding;
 
     private com.example.administrator.eightdayssample.IntroViewPager viewPager;
     private LinearLayout introIndicator;
@@ -34,17 +39,17 @@ public class IntroActivity extends AppCompatActivity implements IntroPresenter.V
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.acitivity_intro);
+        introBinding = DataBindingUtil.setContentView(this, R.layout.activity_intro);
 
         introPresenter = new IntroPresenter(this);
         initViewpager();
     }
 
     private void initViewpager() {
-        introIndicator = (LinearLayout) findViewById(R.id.introIndicator);
+        introIndicator = introBinding.introIndicator;
 
         updateIndicator(0);
-        viewPager = (com.example.administrator.eightdayssample.IntroViewPager) findViewById(R.id.viewPager);
+        viewPager = introBinding.viewPager;
         viewPager.setAdapter(new IntroPagerAdapter(getSupportFragmentManager()));
         viewPager.addOnPageChangeListener(new ViewPager.OnPageChangeListener() {
             @Override
@@ -59,7 +64,7 @@ public class IntroActivity extends AppCompatActivity implements IntroPresenter.V
                 else {
                     introIndicator.setVisibility(View.INVISIBLE);
                     viewPager.setPagingDisabled();
-                    initLoginPage();
+                    initLoginPage(viewPager.findViewWithTag(position));
                 }
             }
 
@@ -70,15 +75,16 @@ public class IntroActivity extends AppCompatActivity implements IntroPresenter.V
         });
     }
 
-    private void initLoginPage() {
+    private void initLoginPage(View view) {
+        FragmentLoginBinding loginBinding = DataBindingUtil.getBinding(view);
         //Initialize EditText clear button
-        etEmail = (EditText) findViewById(R.id.etEmail);
-        btnClearEmail = (ImageView) findViewById(R.id.btnClearEmail);
-        btnClearEmail.setOnClickListener(view -> etEmail.setText(""));
+        etEmail = loginBinding.etEmail;
+        btnClearEmail = loginBinding.btnClearEmail;
+        btnClearEmail.setOnClickListener(v -> etEmail.setText(""));
 
-        etPassword = (EditText) findViewById(R.id.etPassword);
-        btnClearPassword = (ImageView) findViewById(R.id.btnClearPassword);
-        btnClearPassword.setOnClickListener(view -> etPassword.setText(""));
+        etPassword = loginBinding.etPassword;
+        btnClearPassword =  loginBinding.btnClearPassword;
+        btnClearPassword.setOnClickListener(v -> etPassword.setText(""));
 
         //Check E-mail/password validation
         etEmail.addTextChangedListener(new TextWatcher() {
@@ -98,8 +104,8 @@ public class IntroActivity extends AppCompatActivity implements IntroPresenter.V
             }
         });
 
-        btnLogIn = (Button) findViewById(R.id.btnLogIn);
-        btnLogIn.setOnClickListener(view -> introPresenter.isEmpty(etEmail.getText(), etPassword.getText()));
+        btnLogIn =  loginBinding.btnLogIn;
+        btnLogIn.setOnClickListener(v -> introPresenter.isEmpty(etEmail.getText(), etPassword.getText()));
     }
 
     @Override

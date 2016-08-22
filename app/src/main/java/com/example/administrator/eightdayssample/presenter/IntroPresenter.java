@@ -3,8 +3,10 @@ package com.example.administrator.eightdayssample.presenter;
 import android.content.Context;
 import android.text.TextUtils;
 
+import com.example.administrator.eightdayssample.utils.AnalyticsApplication;
 import com.example.administrator.eightdayssample.utils.ValidateUtils;
 import com.example.administrator.eightdayssample.view.IntroActivity;
+import com.google.android.gms.analytics.Tracker;
 
 
 /**
@@ -15,9 +17,14 @@ public class IntroPresenter {
     private View view;
     private Context context;
 
+    private Tracker tracker;
+
     public IntroPresenter(IntroActivity introActivity) {
         this.view = introActivity;
         this.context = introActivity;
+
+        AnalyticsApplication application = (AnalyticsApplication) introActivity.getApplication();
+        tracker = application.getDefaultTracker();
     }
 
     public void validateEmail(CharSequence email) {

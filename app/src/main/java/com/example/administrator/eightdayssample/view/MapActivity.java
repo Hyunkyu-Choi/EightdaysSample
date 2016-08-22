@@ -1,6 +1,7 @@
 package com.example.administrator.eightdayssample.view;
 
 import android.content.Context;
+import android.databinding.DataBindingUtil;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
@@ -12,6 +13,7 @@ import android.widget.EditText;
 import android.widget.ImageView;
 
 import com.example.administrator.eightdayssample.R;
+import com.example.administrator.eightdayssample.databinding.ActivityMapBinding;
 import com.example.administrator.eightdayssample.presenter.MainPresenter;
 
 import net.daum.mf.map.api.CalloutBalloonAdapter;
@@ -26,6 +28,8 @@ public class MapActivity extends AppCompatActivity implements MainPresenter.View
 
     private MainPresenter mainPresenter;
 
+    private ActivityMapBinding mapBinding;
+
     private MapView mapView;
     private ImageView btnCurrentLocation;
     private EditText etLocation;
@@ -35,7 +39,7 @@ public class MapActivity extends AppCompatActivity implements MainPresenter.View
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_map);
+        mapBinding = DataBindingUtil.setContentView(this, R.layout.activity_map);
 
         mainPresenter = new MainPresenter(this);
         initMapView();
@@ -60,13 +64,13 @@ public class MapActivity extends AppCompatActivity implements MainPresenter.View
             }
         });
 
-        ViewGroup mapViewContainer = (ViewGroup) findViewById(R.id.mapView);
+        ViewGroup mapViewContainer = mapBinding.mapView;
         mapViewContainer.addView(mapView);
     }
 
     private void initBtnSearch() {
-        etLocation = (EditText) findViewById(R.id.etLocation);
-        btnSearch = (ImageView) findViewById(R.id.btnSearch);
+        etLocation = mapBinding.etLocation;
+        btnSearch = mapBinding.btnSearch;
 
         btnSearch.setOnClickListener(view -> {
             String query = etLocation.getText().toString();
@@ -80,7 +84,7 @@ public class MapActivity extends AppCompatActivity implements MainPresenter.View
     }
 
     private void initBtnCurrentLocation() {
-        btnCurrentLocation = (ImageView) findViewById(R.id.btnCurrentLocation);
+        btnCurrentLocation = mapBinding.btnCurrentLocation;
         btnCurrentLocation.setOnClickListener(view -> mainPresenter.getCurrentLocation());
     }
 
