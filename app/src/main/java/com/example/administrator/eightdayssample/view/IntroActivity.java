@@ -57,6 +57,7 @@ public class IntroActivity extends AppCompatActivity implements IntroPresenter.V
 
             }
 
+
             @Override
             public void onPageSelected(int position) {
                 if (position != IntroPagerAdapter.INTRO_SCREEN_MAX - 1)
