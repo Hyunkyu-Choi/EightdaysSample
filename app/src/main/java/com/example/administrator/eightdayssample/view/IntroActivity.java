@@ -137,7 +137,7 @@ public class IntroActivity extends AppCompatActivity implements IntroPresenter.V
     public void showEmptyMessage(boolean isEmpty) {
         if (isEmpty && "valid".equals(etEmail.getTag())) {
             //Todo: 로그인 처리
-            Intent intent = new Intent(this, MapActivity.class);
+            Intent intent = new Intent(this, HomeActivity.class);
             startActivity(intent);
         } else {
             AlertDialog.Builder dialogBuilder = new AlertDialog.Builder(this);
